@@ -5,8 +5,8 @@ class Week {
   final int weekNumber;
 
   Week({
-    required this.year,
-    required this.weekNumber,
+    this.year,
+    this.weekNumber,
   });
 
   /// return the ordinal date, the number of days since December 31st the previous year.
