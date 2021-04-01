@@ -1,32 +1,58 @@
 import 'package:isoweek/isoweek.dart';
+import 'package:test/test.dart';
 
 void main() {
-  Week currentWeek = Week.current();
+  group('Test conversion from ISO String to week.', () {
+    test(
+      '2021W07',
+      () {
+        final weekFromIso = Week.fromISOString('2021W07');
 
-  Week nextWeek = currentWeek.next;
-  print("Days of next week: ${nextWeek.days}");
-  //OUTPUT: Days of next week: [2020-09-21 01:00:00.000, 2020-09-22 01:00:00.000 ...]
+        expect(weekFromIso, equals(const Week(year: 2021, weekNumber: 7)));
+      },
+    );
+    test(
+      '2021W7',
+      () {
+        final weekFromIso = Week.fromISOString('2021W7');
 
-  Week previousWeek = currentWeek.previous;
-  print("Days of previous week: ${previousWeek.days}");
-  //OUTPUT: Days of previous week: [2020-09-07 01:00:00.000, 2020-09-08 01:00:00.000 ...]
+        expect(weekFromIso, equals(const Week(year: 2021, weekNumber: 7)));
+      },
+    );
+    test(
+      '2021-W01',
+      () {
+        final weekFromIso = Week.fromISOString('2021-W01');
 
-  Week futureWeek = currentWeek.addWeeks(5);
-  print("5 weeks ahead: $futureWeek");
-  //OUTPUT: 5 weeks ahead: 2020W43
+        expect(weekFromIso, equals(const Week(year: 2021, weekNumber: 1)));
+      },
+    );
+    test(
+      '2021-W1',
+      () {
+        final weekFromIso = Week.fromISOString('2021-W1');
 
-  DateTime myBirthday = DateTime.utc(2020, 11, 16);
-  Week birthdayWeek = Week.fromDate(myBirthday);
-  print("My birthday week in 2020:  ${birthdayWeek.weekNumber}");
-  //OUTPUT: My birthday week in 2020:  47
+        expect(weekFromIso, equals(const Week(year: 2021, weekNumber: 1)));
+      },
+    );
+  });
 
-  String isoWeek = "2020W38";
-  Week weekFromIso = Week.fromIsoString(isoWeek);
-  print("Week from Iso: $weekFromIso");
-  //OUTPUT: "Week from Iso: 2020W38
+  test(
+    'Test getting week from DateTime.',
+    () {
+      final week = Week.fromDate(DateTime.utc(2020, 11, 16));
 
-  Week w = Week(year: 2020, weekNumber: 38);
-  DateTime monday = w.day(0);
-  print("The Week $w starts with $monday");
-  //OUTPUT: The Week 2020W38 starts with 2020-09-14 01:00:00.000
+      expect(week, equals(const Week(year: 2020, weekNumber: 47)));
+    },
+  );
+
+  test(
+    'Test getting DateTime from week and then getting the DateTime again from the week.',
+    () {
+      final monday = Week.current().day(0);
+      final monday2 = Week.fromDate(monday).day(0);
+
+      expect(monday, equals(monday2));
+    },
+  );
 }
