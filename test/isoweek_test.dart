@@ -55,4 +55,14 @@ void main() {
       expect(monday, equals(monday2));
     },
   );
+
+  test(
+    'Test if all DateTimes in the days getter have a time of 00:00:00.',
+    () {
+      final daysWithTimeEqualToZero = Week.current().days.where(
+          (date) => date.hour == 0 && date.minute == 0 && date.second == 0);
+
+      expect(daysWithTimeEqualToZero.length, equals(7));
+    },
+  );
 }

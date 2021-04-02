@@ -1,6 +1,6 @@
 name: isoweek
 description: A lightweight Dart package which provides the class Week (based on the ISO 8601 format).
-version: 1.1.0
+version: 1.1.1
 homepage: https://jensbecker.dev
 repository: https://github.com/devj3ns/isoweek
 issue_tracker: https://github.com/devj3ns/isoweek/issues

@@ -71,19 +71,20 @@ class Week extends Equatable {
 
   /// Return the week that many number of weeks into the future.
   Week addWeeks(int weeks) {
-    return Week.fromDate(day(0).add(Duration(days: 7 * weeks)));
+    return Week.fromDate(day(0).addWeeks(weeks));
   }
 
   /// Return the week that many number of weeks in the past.
   Week subtractWeeks(int weeks) {
-    return Week.fromDate(day(0).subtract(Duration(days: 7 * weeks)));
+    return Week.fromDate(day(0).subtractWeeks(weeks));
   }
 
   /// Return a day of the week as a DateTime object based on the provided day index. Day 0 is Monday.
   DateTime day(int day) {
     // According to ISO the Jan 4th must be in week 1
-    final d = DateTime(year, 1, 4);
-    return d.add(Duration(days: (weekNumber - 1) * 7 + (-d.weekday + day) + 1));
+    final addDays =
+        (weekNumber - 1) * 7 + (-DateTime(year, 1, 4).weekday + day) + 1;
+    return DateTime(year, 1, 4).addDays(addDays);
   }
 
   /// Return the next week.
@@ -93,16 +94,45 @@ class Week extends Equatable {
   Week get previous => subtractWeeks(1);
 
   /// Return a list of all days in the week.
-  List<DateTime> get days {
-    final monday = day(0);
-    final days = <DateTime>[];
-    for (var i in [0, 1, 2, 3, 4, 5, 6]) {
-      days.add(monday.add(Duration(days: i)));
-    }
-    return days;
-  }
+  List<DateTime> get days => List.generate(7, (i) => day(0).addDays(i));
 
   /// Return an ISO formatted string like "2020W01".
   @override
   String toString() => '${year}W${weekNumber.toString().padLeft(2, '0')}';
+}
+
+extension DateTimeUtils on DateTime {
+  /// Alternative to add(days: x) because of daylight-saving issues.
+  DateTime addDays(int days) => copyWith(day: day + days);
+
+  /// Alternative to add(days: x * 7) because of daylight-saving issues.
+  DateTime addWeeks(int weeks) => copyWith(day: day + weeks * 7);
+
+  /// Alternative to subtract(days: 7) because of daylight-saving issues.
+  DateTime subtractDays(int days) => copyWith(day: day - days);
+
+  /// Alternative to subtract(days: x * 7) because of daylight-saving issues.
+  DateTime subtractWeeks(int weeks) => copyWith(day: day - weeks * 7);
+
+  DateTime copyWith({
+    int? year,
+    int? month,
+    int? day,
+    int? hour,
+    int? minute,
+    int? second,
+    int? millisecond,
+    int? microsecond,
+  }) {
+    return DateTime(
+      year ?? this.year,
+      month ?? this.month,
+      day ?? this.day,
+      hour ?? this.hour,
+      minute ?? this.minute,
+      second ?? this.second,
+      millisecond ?? this.millisecond,
+      microsecond ?? this.microsecond,
+    );
+  }
 }

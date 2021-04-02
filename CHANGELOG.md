@@ -1,3 +1,7 @@
+## 1.1.1
+
+* Fix daylight-saving issue
+
 ## 1.1.0
 
 * Stable null safety release
