@@ -1,3 +1,7 @@
+## 1.1.2
+
+* Make DateTime extension private to avoid conflicts
+
 ## 1.1.1
 
 * Fix daylight-saving issue

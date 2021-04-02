@@ -101,7 +101,7 @@ class Week extends Equatable {
   String toString() => '${year}W${weekNumber.toString().padLeft(2, '0')}';
 }
 
-extension DateTimeUtils on DateTime {
+extension _DateTimeUtils on DateTime {
   /// Alternative to add(days: x) because of daylight-saving issues.
   DateTime addDays(int days) => copyWith(day: day + days);
 
