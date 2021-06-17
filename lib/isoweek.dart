@@ -8,25 +8,6 @@ class Week extends Equatable {
     required this.weekNumber,
   });
 
-  final int year;
-  final int weekNumber;
-
-  @override
-  List<Object> get props => [year, weekNumber];
-
-  /// Return the ordinal date, the number of days since December 31st the previous year.
-  static int _ordinalDate(DateTime date) {
-    const offsets = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-    return offsets[date.month - 1] +
-        date.day +
-        (_isLeapYear(date.year) && date.month > 2 ? 1 : 0);
-  }
-
-  /// Return true if the given year is a leap year.
-  static bool _isLeapYear(int year) {
-    return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
-  }
-
   /// Return the week that contains the given date.
   factory Week.fromDate(DateTime date) {
     // Add 3 to always compare with January 4th, which is always in week 1
@@ -69,6 +50,26 @@ class Week extends Equatable {
     return Week(year: year, weekNumber: weekNumber);
   }
 
+  final int year;
+  final int weekNumber;
+
+  @override
+  List<Object> get props => [year, weekNumber];
+
+  /// Return the ordinal date, the number of days since December 31st the previous year.
+  static int _ordinalDate(DateTime date) {
+    const offsets = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+
+    return offsets[date.month - 1] +
+        date.day +
+        (_isLeapYear(date.year) && date.month > 2 ? 1 : 0);
+  }
+
+  /// Return true if the given year is a leap year.
+  static bool _isLeapYear(int year) {
+    return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+  }
+
   /// Return the week that many number of weeks into the future.
   Week addWeeks(int weeks) {
     return Week.fromDate(day(0).addWeeks(weeks));
@@ -84,6 +85,7 @@ class Week extends Equatable {
     // According to ISO the Jan 4th must be in week 1
     final addDays =
         (weekNumber - 1) * 7 + (-DateTime(year, 1, 4).weekday + day) + 1;
+
     return DateTime(year, 1, 4).addDays(addDays);
   }
 
@@ -107,9 +109,6 @@ extension _DateTimeUtils on DateTime {
 
   /// Alternative to add(days: x * 7) because of daylight-saving issues.
   DateTime addWeeks(int weeks) => copyWith(day: day + weeks * 7);
-
-  /// Alternative to subtract(days: 7) because of daylight-saving issues.
-  DateTime subtractDays(int days) => copyWith(day: day - days);
 
   /// Alternative to subtract(days: x * 7) because of daylight-saving issues.
   DateTime subtractWeeks(int weeks) => copyWith(day: day - weeks * 7);
