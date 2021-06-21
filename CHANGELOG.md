@@ -1,3 +1,8 @@
+## 1.1.3
+
+* Use flutter_lints instead of pedantic (deprecated)
+* Add badges to README
+
 ## 1.1.2
 
 * Make DateTime extension private to avoid conflicts
