@@ -1,5 +1,12 @@
 # isoweek
 
+<p align="center">
+<a href="https://pub.dev/packages/isoweek"><img src="https://img.shields.io/pub/v/isoweek?color=green" alt="pub.dev badge"></a>
+<a href="https://github.com/devj3ns/isoweek/commits/main"><img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/devj3ns/isoweek?color=blue&label=commits"></a>
+<br>
+<a href="https://www.buymeacoffee.com/devj3ns" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height="42px"></a>
+</p>
+
 A lightweight Dart package which provides the class Week (based on the local time). Instances represent specific weeks spanning Monday to Sunday. 
 An ISO week-numbering year has 52 or 53 full weeks. Week 1 is defined to be the first week with 4 or more days in January.
 
