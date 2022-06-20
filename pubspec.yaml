@@ -13,5 +13,5 @@ dependencies:
 
 dev_dependencies:
   test: ^1.17.8
-  flutter_lints: ^1.0.3
+  flutter_lints: ">=1.0.3 <3.0.0"
   dart_code_metrics: ^4.0.0
