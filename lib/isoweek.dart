@@ -12,7 +12,7 @@ class Week extends Equatable {
   factory Week.fromDate(DateTime date) {
     // Add 3 to always compare with January 4th, which is always in week 1
     // Add 7 to index weeks starting with 1 instead of 0
-    final woy = ((_ordinalDate(date) - date.weekday + 10) ~/ 7);
+    final woy = (_ordinalDate(date) - date.weekday + 10) ~/ 7;
 
     // If the week number equals zero, it means that the given date belongs to the preceding (week-based) year.
     if (woy == 0) {
@@ -37,7 +37,7 @@ class Week extends Equatable {
   factory Week.fromISOString(String isoString) {
     final parts = isoString.split('W');
 
-    var yearStr = parts[0];
+    var yearStr = parts.first;
     if (yearStr.length > 4) {
       // If separated with - (e.g. "2020-W01")
       yearStr = yearStr.substring(0, 4);
