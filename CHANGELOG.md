@@ -1,3 +1,8 @@
+## 1.1.4
+* Add dependabot
+* Update dependencies and use fleasy for analysis_options
+* Fix analysis suggestions
+
 ## 1.1.3
 
 * Use flutter_lints instead of pedantic (deprecated)
